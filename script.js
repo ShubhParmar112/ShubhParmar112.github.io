@@ -239,6 +239,22 @@ const researchDetails = {
 })();
 
 // ══════════════════════════════════════════
+// THEME TOGGLE (Dark / Light)
+// ══════════════════════════════════════════
+(function initThemeToggle() {
+  const toggle = document.getElementById('themeToggle');
+  if (!toggle) return;
+  const root = document.documentElement;
+
+  toggle.addEventListener('click', () => {
+    const toLight = root.getAttribute('data-theme') !== 'light';
+    if (toLight) root.setAttribute('data-theme', 'light');
+    else root.removeAttribute('data-theme');
+    try { localStorage.setItem('theme', toLight ? 'light' : 'dark'); } catch (e) {}
+  });
+})();
+
+// ══════════════════════════════════════════
 // SCROLL REVEAL (Intersection Observer)
 // ══════════════════════════════════════════
 (function initReveal() {
@@ -477,8 +493,17 @@ function showSuccessModal(msg) {
 // ══════════════════════════════════════════
 (function initBackToTop() {
   const btn = document.getElementById('backToTop');
+  const footer = document.querySelector('.footer');
   if (!btn) return;
-  window.addEventListener('scroll', () => btn.classList.toggle('visible', window.scrollY > 400));
+  function update() {
+    btn.classList.toggle('visible', window.scrollY > 400);
+    // Lift above the footer once it scrolls into view
+    const overlap = footer ? window.innerHeight - footer.getBoundingClientRect().top : 0;
+    btn.style.bottom = overlap > 0 ? `${32 + overlap}px` : '';
+  }
+
+  window.addEventListener('scroll', update);
+  window.addEventListener('resize', update);
   btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 })();
 

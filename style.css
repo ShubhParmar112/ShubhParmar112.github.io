@@ -49,6 +49,33 @@
   --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ── Light Theme Tokens ── */
+[data-theme="light"] {
+  --bg-deep: #f6f7fb;
+  --bg-base: #eef0f7;
+  --bg-surface: #ffffff;
+  --bg-elevated: #e9ebf5;
+  --bg-glass: rgba(255, 255, 255, 0.65);
+  --bg-glass-strong: rgba(255, 255, 255, 0.88);
+
+  --border-subtle: rgba(15, 17, 23, 0.08);
+  --border-medium: rgba(15, 17, 23, 0.14);
+  --border-accent: rgba(99, 102, 241, 0.35);
+
+  --text-primary: #1a1c2e;
+  --text-secondary: #4a4c68;
+  --text-muted: #6e7090;
+
+  --cyan: #4f46e5;
+  --cyan-dim: #4338ca;
+  --violet: #e11d48;
+  --violet-dim: #be123c;
+
+  --glow-cyan: 0 0 20px rgba(99, 102, 241, 0.18);
+  --glow-violet: 0 0 20px rgba(244, 63, 94, 0.18);
+  --glow-cyan-strong: 0 0 40px rgba(99, 102, 241, 0.25);
+}
+
 /* ── Reset & Base ── */
 *,
 *::before,
@@ -282,6 +309,52 @@ img {
 .nav-links a.active {
   color: var(--cyan);
   background: rgba(99, 102, 241, 0.06);
+}
+
+nav {
+  margin-left: auto;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 8px;
+}
+
+.theme-toggle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  z-index: 1001;
+}
+
+.theme-toggle:hover {
+  color: var(--cyan);
+  border-color: var(--border-accent);
+  box-shadow: var(--glow-cyan);
+}
+
+/* Sun in dark mode, moon in light mode */
+.theme-toggle .fa-moon {
+  display: none;
+}
+
+[data-theme="light"] .theme-toggle .fa-sun {
+  display: none;
+}
+
+[data-theme="light"] .theme-toggle .fa-moon {
+  display: inline-block;
 }
 
 .hamburger {
@@ -1378,7 +1451,7 @@ img {
   opacity: 0;
   visibility: hidden;
   transform: translateY(20px);
-  transition: all var(--transition);
+  transition: opacity var(--transition), visibility var(--transition), transform var(--transition), box-shadow var(--transition);
   z-index: 900;
   box-shadow: 0 4px 20px rgba(99, 102, 241, 0.25);
   display: flex;
@@ -1395,6 +1468,48 @@ img {
 .back-to-top:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+}
+
+/* ══════════════════════════════════════════
+   LIGHT THEME OVERRIDES
+   (colours not covered by the tokens above)
+   ══════════════════════════════════════════ */
+[data-theme="light"] ::selection {
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .navbar.scrolled {
+  box-shadow: 0 1px 0 var(--border-subtle), 0 8px 32px rgba(15, 17, 23, 0.08);
+}
+
+[data-theme="light"] .hero-name {
+  background: linear-gradient(135deg, #1a1c2e 30%, #4f46e5 70%, #e11d48 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+[data-theme="light"] .project-card:hover,
+[data-theme="light"] .research-card:hover {
+  box-shadow: 0 20px 50px rgba(15, 17, 23, 0.1), var(--glow-cyan);
+}
+
+[data-theme="light"] .about-highlight-card:hover,
+[data-theme="light"] .skills-category:hover,
+[data-theme="light"] .timeline-item:hover .timeline-content {
+  box-shadow: 0 10px 40px rgba(15, 17, 23, 0.08);
+}
+
+[data-theme="light"] .project-card-image-overlay,
+[data-theme="light"] .research-card-image-overlay {
+  background: linear-gradient(transparent 50%, rgba(255, 255, 255, 0.6) 100%);
+}
+
+[data-theme="light"] .form-error {
+  color: #dc2626;
+}
+
+[data-theme="light"] .modal-overlay {
+  background: rgba(15, 17, 23, 0.45);
 }
 
 /* ══════════════════════════════════════════

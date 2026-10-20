@@ -14,6 +14,11 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="style.css" />
+
+    <!-- Theme (applied before paint to avoid a dark/light flash) -->
+    <script>
+      try { if (localStorage.getItem('theme') === 'light') document.documentElement.setAttribute('data-theme', 'light'); } catch (e) {}
+    </script>
   </head>
   <body>
     <!-- ═══════════ NAVIGATION ═══════════ -->
@@ -30,8 +35,14 @@
             <li><a href="#contact">Contact</a></li>
           </ul>
         </nav>
-        <div class="hamburger" id="hamburger">
-          <span></span><span></span><span></span>
+        <div class="nav-actions">
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+            <i class="fa-solid fa-sun"></i>
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+          </div>
         </div>
       </div>
     </header>
